@@ -15,6 +15,6 @@ A chatroom made in python using ChatGPT only :)
 1. Start chatting :)
 
 
-## Note: The default port is 12345, make sure to change it in case there is something already running on it.  
+#### Note: The default port is 12345, make sure to change it in case there is something already running on it.  
 
-## Future Goals: To make this a website or something, so that anyone can access it across the globe :)
+#### Future Goals: To make this a website or something, so that anyone can access it across the globe :)
