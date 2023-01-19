@@ -1,7 +1,9 @@
 # ChatRoomAI
 A chatroom made in python using ChatGPT only :)
 
-This runs on your local server. To use it, you have to:
+
+This runs on your local server. To use it, you have to:  
+
 1)Run the server.py file  
 
 2)Run the client.py file, in terminal/command prompt  
