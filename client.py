@@ -62,6 +62,11 @@ receive_thread.start()
 
 root = tk.Tk()
 root.title("Chat Client")
+
+#Esc and q key for ending the program
+root.bind("<Escape>", lambda event: root.destroy())
+root.bind("q", lambda event: on_closing())
+
 root.protocol("WM_DELETE_WINDOW", on_closing)
 
 text = tk.Text(root)
