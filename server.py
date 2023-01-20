@@ -16,11 +16,17 @@ while True:
     for socket in rlist:
         if socket is server_socket:
             client_socket, addr = server_socket.accept()
-            clients.append(client_socket)
             username = client_socket.recv(1024).decode()
-            clients_name[client_socket] = username
-            message = f"{username} has joined the chat room"
-            broadcast(message, server_socket)
+
+            if clients_name and username in clients_name.values():
+                print(clients_name, username)
+                client_socket.send("Error: username already taken.".encode())
+                client_socket.close()
+            else:
+                clients.append(client_socket)
+                clients_name[client_socket] = username
+                message = f"{username} has joined the chat room"
+                broadcast(message, server_socket)
         else:
             try:
                 data = socket.recv(1024)

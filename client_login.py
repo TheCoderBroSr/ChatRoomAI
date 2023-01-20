@@ -1,11 +1,15 @@
 import tkinter as tk
 from tkinter import ttk
-from chat_window import start_client
+from connection import start_client, username_exists
 
 def on_submit():
     username = name_entry.get()
-    root.destroy()
-    start_client(username)
+    
+    if username_exists(username):
+        ttk.Label(mainframe, text="Username already exists. Try another one").grid(column=1, row=4, sticky=tk.W)
+    else:
+        root.destroy()
+        start_client(username)
     
 
 if __name__ == '__main__':

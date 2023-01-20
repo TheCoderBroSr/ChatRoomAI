@@ -51,7 +51,16 @@ def on_closing():
     root.destroy()
     sys.exit()
 
+def username_exists(username):
+    client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    host = socket.gethostname()
+    port = 12345
+    client_socket.connect((host, port))
+    client_socket.send(username.encode())
+    data = client_socket.recv(1024).decode()
 
+    return "username already taken" in data
+    
 def start_client(username:str):
     global client_socket, text, entry, root
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
