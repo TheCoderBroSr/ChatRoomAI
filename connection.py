@@ -28,6 +28,8 @@ def update_text(queue):
                 tag = "joined"
             elif "has disconnected" in data:
                 tag = "disconnected"
+            elif "error" in data.lower():
+                tag = "err"
             else:
                 tag = data[0:data.index(':')] # Getting Username from data
 
@@ -50,16 +52,6 @@ def on_closing():
     client_socket.close()
     root.destroy()
     sys.exit()
-
-def username_exists(username):
-    client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    host = socket.gethostname()
-    port = 12345
-    client_socket.connect((host, port))
-    client_socket.send(username.encode())
-    data = client_socket.recv(1024).decode()
-
-    return "username already taken" in data
     
 def start_client(username:str):
     global client_socket, text, entry, root
@@ -84,6 +76,7 @@ def start_client(username:str):
     
     text = tk.Text(root) 
     text.config(font=("Courier", 12), background='#f0f0f0', state='disabled')
+    text.tag_config("err_tag", foreground="red")
     text.tag_config("joined_tag", foreground="green")
     text.tag_config("disconnected_tag", foreground="red")
     text.tag_config(f"{username}_tag", foreground="blue")
@@ -101,4 +94,3 @@ def start_client(username:str):
 
     root.after(0, update_text, queue)
     root.mainloop()
-
