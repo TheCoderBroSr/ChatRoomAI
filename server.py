@@ -29,17 +29,16 @@ while True:
         else:
             try:
                 data = socket.recv(1024)
-                if not data:
-                    clients.remove(socket)
-                    disconnected_user = clients_name[socket]
-                    message = f"{disconnected_user} has disconnected"
-                    broadcast(message, server_socket)
-                else:
-                    username = clients_name[socket]
-                    message = f"{username}: {data.decode()}"
-                    broadcast(message, server_socket)
-            except:
-                clients.remove(socket)
+                
+                username = clients_name[socket]
+                message = f"{username}: {data.decode()}"
+                broadcast(message, server_socket)
+            except ConnectionResetError:
+                # Getting the disconnected client's name
                 disconnected_user = clients_name[socket]
+                # Removing the client
+                clients.remove(socket)
+                del clients_name[socket]
+                # Generating the message and broadcasting it
                 message = f"{disconnected_user} has disconnected"
                 broadcast(message, server_socket)
