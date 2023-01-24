@@ -1,16 +1,14 @@
 import tkinter as tk
 from tkinter import ttk
-from connection import start_client, username_exists
-
+from connection import start_client
+    
 def on_submit():
+    global root
     username = name_entry.get()
-    
-    if username_exists(username):
-        ttk.Label(mainframe, text="Username already exists. Try another one").grid(column=1, row=4, sticky=tk.W)
-    else:
-        root.destroy()
-        start_client(username)
-    
+    print(f"Sending username: {username}")  # Debug statement
+    root.destroy()
+    start_client(username)
+
 
 if __name__ == '__main__':
     root = tk.Tk()

@@ -17,9 +17,8 @@ while True:
         if socket is server_socket:
             client_socket, addr = server_socket.accept()
             username = client_socket.recv(1024).decode()
-
-            if clients_name and username in clients_name.values():
-                print(clients_name, username)
+            print(f"Received username: {username}")  # Debug statement
+            if username in clients_name.values():
                 client_socket.send("Error: username already taken.".encode())
                 client_socket.close()
             else:
