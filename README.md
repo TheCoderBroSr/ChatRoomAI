@@ -1,6 +1,8 @@
 # ChatRoomAI
 A chatroom made in python using ChatGPT only :)
 
+## The BIG UPDATE 🔥🔥🔥
+Making the Chatroom a website, using Flask :)
 
 ## This runs on your local server. To use it, you have to:  
 
