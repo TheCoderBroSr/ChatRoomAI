@@ -9,6 +9,16 @@ def broadcast(message, server_socket):
     for sock in clients:
         sock.send(message.encode())
 
+def remove_user(socket):
+    # Getting the disconnected client's name
+    disconnected_user = clients_name[socket]
+    # Removing the client
+    clients.remove(socket)
+    del clients_name[socket]
+    # Generating the message and broadcasting it
+    message = f"{disconnected_user} has disconnected"
+    broadcast(message, server_socket)
+
 clients = []
 clients_name = {}
 while True:
@@ -29,16 +39,13 @@ while True:
         else:
             try:
                 data = socket.recv(1024)
+
+                if not data:
+                    remove_user(socket)
                 
                 username = clients_name[socket]
                 message = f"{username}: {data.decode()}"
                 broadcast(message, server_socket)
+                
             except ConnectionResetError:
-                # Getting the disconnected client's name
-                disconnected_user = clients_name[socket]
-                # Removing the client
-                clients.remove(socket)
-                del clients_name[socket]
-                # Generating the message and broadcasting it
-                message = f"{disconnected_user} has disconnected"
-                broadcast(message, server_socket)
+                remove_user(socket)
